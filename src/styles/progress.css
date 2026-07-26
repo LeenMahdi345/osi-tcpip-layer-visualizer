@@ -1,0 +1,141 @@
+/* Progress bar, speed switch and step timeline. */
+
+.progress__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.progress__bar {
+  height: 7px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-sunken);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.progress__fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #34d399, var(--accent), #a78bfa);
+  background-size: 220% 100%;
+  transition: width var(--t-slow) var(--ease);
+  animation: gradient-drift 4s linear infinite;
+}
+
+.progress__speed {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.timeline__item {
+  position: relative;
+}
+
+.timeline__button {
+  --layer-color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: 7px var(--space-2);
+  border-radius: var(--radius-md);
+  text-align: left;
+  transition: background var(--t-fast) var(--ease);
+}
+
+.timeline__button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.timeline__button:disabled {
+  cursor: default;
+}
+
+/* Connector line between dots. */
+.timeline__item:not(:last-child) .timeline__button::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--space-2) + 7px);
+  top: 26px;
+  bottom: -2px;
+  width: 1px;
+  background: var(--border);
+}
+
+.timeline__dot {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+  flex: none;
+  border-radius: 50%;
+  border: 2px solid var(--border-strong);
+  background: var(--bg);
+  color: #06101c;
+  transition: all var(--t-base) var(--ease);
+}
+
+.timeline__item.is-done .timeline__dot {
+  border-color: var(--layer-color);
+  background: var(--layer-color);
+}
+
+.timeline__item.is-active .timeline__dot {
+  border-color: var(--layer-color);
+  background: var(--layer-color);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--layer-color) 22%, transparent);
+}
+
+.timeline__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.timeline__title {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color var(--t-base) var(--ease);
+}
+
+.timeline__item.is-active .timeline__title {
+  color: var(--text);
+  font-weight: 650;
+}
+
+.timeline__item.is-pending .timeline__title {
+  color: var(--text-faint);
+}
+
+.timeline__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.63rem;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.timeline__item.is-active .timeline__meta {
+  color: var(--layer-color);
+}

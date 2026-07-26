@@ -1,0 +1,67 @@
+/* Every keyframe used by the app, kept in one place. */
+
+@keyframes layer-pop {
+  from {
+    transform: translateX(0) scale(0.985);
+    opacity: 0.75;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--layer-color) 55%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 9px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@keyframes wire-dash {
+  to {
+    background-position: 32px 0;
+  }
+}
+
+@keyframes packet-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px rgba(6, 12, 24, 0.65), 0 0 18px 2px rgba(125, 211, 252, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(6, 12, 24, 0.65), 0 0 30px 8px rgba(125, 211, 252, 0.85);
+  }
+}
+
+@keyframes block-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+}
+
+@keyframes gradient-drift {
+  to {
+    background-position: 220% 0;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Respect users who prefer less motion: keep state changes, drop the movement. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,114 @@
+/* The transmission medium: nodes, animated line and the travelling packet. */
+
+.wire {
+  display: grid;
+  grid-template-columns: auto minmax(80px, 1fr) auto;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.wire__node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: var(--space-3) var(--space-2);
+  min-width: 88px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface-sunken);
+  color: var(--text-muted);
+  transition: color var(--t-base) var(--ease), border-color var(--t-base) var(--ease),
+    box-shadow var(--t-base) var(--ease), transform var(--t-base) var(--ease);
+}
+
+.wire__node.is-hot {
+  color: var(--accent);
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.22);
+  transform: translateY(-2px);
+}
+
+.wire__node-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.wire__node-sub {
+  font-size: 0.64rem;
+  color: var(--text-faint);
+}
+
+.wire__track {
+  position: relative;
+  height: 46px;
+  display: flex;
+  align-items: center;
+}
+
+.wire__line {
+  position: absolute;
+  inset-inline: 0;
+  height: 3px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, rgba(94, 122, 168, 0.25), rgba(94, 122, 168, 0.45), rgba(94, 122, 168, 0.25));
+}
+
+.wire__flow {
+  position: absolute;
+  inset-inline: 0;
+  height: 3px;
+  border-radius: var(--radius-pill);
+  opacity: 0;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 10px,
+    rgba(125, 211, 252, 0.85) 10px 22px
+  );
+  background-size: 32px 100%;
+  transition: opacity var(--t-base) var(--ease);
+}
+
+.wire.is-live .wire__flow {
+  opacity: 1;
+  animation: wire-dash 0.7s linear infinite;
+}
+
+.wire__packet {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--travel, 0) * 100%);
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin-left: -15px;
+  border-radius: 10px;
+  color: #05101b;
+  box-shadow: 0 0 0 4px rgba(6, 12, 24, 0.65), 0 8px 20px rgba(56, 189, 248, 0.35);
+  transform: translateY(-50%);
+  transition: left var(--wire-duration, var(--t-slow)) var(--ease), box-shadow var(--t-base) var(--ease);
+}
+
+.wire__packet.is-flying {
+  animation: packet-glow 1s ease-in-out infinite;
+}
+
+.wire__legend {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--border);
+  font-size: 0.68rem;
+  color: var(--text-faint);
+}
+
+.wire__legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}

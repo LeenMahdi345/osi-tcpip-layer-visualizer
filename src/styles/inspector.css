@@ -1,0 +1,196 @@
+/* Packet Inspector: nested header blocks around the payload. */
+
+.inspector__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.inspector__summary {
+  display: block;
+  padding: 10px var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: rgba(3, 7, 16, 0.6);
+  font-size: 0.73rem;
+  color: var(--accent);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.inspector__removed {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  padding: 7px var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px dashed rgba(251, 113, 133, 0.4);
+  background: rgba(251, 113, 133, 0.08);
+}
+
+.inspector__removed strong {
+  color: var(--danger);
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+.inspector__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 460px;
+  overflow-y: auto;
+}
+
+.pblock {
+  --block-color: var(--accent);
+  position: relative;
+  display: grid;
+  grid-template-columns: 4px minmax(0, 1fr);
+  gap: var(--space-3);
+  padding: 9px var(--space-3) 9px 0;
+  margin-left: calc(min(var(--depth, 0), 5) * 8px);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface-sunken);
+  transition: border-color var(--t-base) var(--ease), background var(--t-base) var(--ease),
+    transform var(--t-base) var(--ease);
+}
+
+.pblock:hover {
+  border-color: color-mix(in srgb, var(--block-color) 45%, var(--border));
+  background: var(--surface-raised);
+}
+
+.pblock.is-new {
+  border-color: var(--block-color);
+  box-shadow: 0 0 0 1px var(--block-color), 0 8px 22px color-mix(in srgb, var(--block-color) 22%, transparent);
+  animation: block-slide-in var(--t-slow) var(--ease-out-back);
+}
+
+.pblock__bar {
+  border-radius: var(--radius-pill);
+  background: var(--block-color);
+  align-self: stretch;
+  margin-left: 6px;
+}
+
+.pblock--payload {
+  background: rgba(226, 232, 240, 0.07);
+  border-style: dashed;
+}
+
+.pblock__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.pblock__label {
+  font-size: 0.8rem;
+  font-weight: 650;
+  color: var(--text);
+}
+
+.pblock__kind {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  color: var(--block-color);
+  background: color-mix(in srgb, var(--block-color) 14%, transparent);
+}
+
+.pblock__summary {
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  margin-top: 1px;
+}
+
+.pblock__fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2px var(--space-3);
+  margin: 6px 0 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height var(--t-base) var(--ease), opacity var(--t-base) var(--ease);
+}
+
+.pblock:hover .pblock__fields,
+.pblock.is-new .pblock__fields {
+  max-height: 260px;
+  opacity: 1;
+}
+
+.pblock__field {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font-size: 0.68rem;
+  padding: 2px 0;
+  border-bottom: 1px dotted rgba(94, 122, 168, 0.18);
+  min-width: 0;
+}
+
+.pblock__field dt {
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+
+.pblock__field dd {
+  margin: 0;
+  color: var(--text);
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.pblock__flag {
+  position: absolute;
+  top: -8px;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 7px;
+  border-radius: var(--radius-pill);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #05101b;
+  background: var(--block-color);
+}
+
+.inspector__signal {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px dashed color-mix(in srgb, var(--block-color) 50%, var(--border));
+  background: rgba(3, 7, 16, 0.5);
+}
+
+.inspector__signal.is-new {
+  border-style: solid;
+  border-color: var(--block-color);
+  box-shadow: 0 0 0 1px var(--block-color), 0 8px 22px color-mix(in srgb, var(--block-color) 22%, transparent);
+  animation: block-slide-in var(--t-slow) var(--ease-out-back);
+}
+
+.inspector__signal code {
+  font-size: 0.7rem;
+  color: var(--block-color);
+  overflow-x: auto;
+  white-space: nowrap;
+}
