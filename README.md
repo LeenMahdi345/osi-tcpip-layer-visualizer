@@ -78,35 +78,7 @@ At the receiver the process runs in reverse — each layer reads its own header,
 
 No UI framework, no animation library, no icon package — runtime dependencies are React and React DOM only.
 
----
 
-## Running it locally
-
-**Requirements:** Node.js 20.19+ (or 22.12+) and npm.
-
-```bash
-# 1. Clone
-git clone https://github.com/LeenMahdi345/osi-tcpip-layer-visualizer.git
-cd osi-tcpip-layer-visualizer
-
-# 2. Install dependencies
-npm install
-
-# 3. Start the dev server
-npm run dev
-```
-
-Then open the URL Vite prints (usually <http://localhost:5173>).
-
-### Other scripts
-
-```bash
-npm run build     # production build into dist/
-npm run preview   # serve the production build locally
-npm run lint      # run Oxlint
-```
-
----
 
 ## Project structure
 
